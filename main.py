@@ -5,23 +5,19 @@ from tqdm import tqdm
 from joblib import Parallel, delayed
 import pandas as pd
 
-#pairing_list = enumerate_pairings([i for i in range(8)])
-#print(f'Number of pairings = {len(pairing_list)}')
-#tot = 0
-#func = lambda pairing: pairing_moment(30, 2, 2, pairing)
-#moment_list = Parallel(n_jobs=-1, verbose=10)(delayed(func)(pairing) for pairing in pairing_list)
-#for i, moment in enumerate(moment_list):
-#    if moment < 0.1:
-#        print(pairing_list[i])
-#        tot += 1
-#print(f'Number of detected pairings = {tot}')
-#plt.hist(moment_list, bins=30)
-#plt.show()
+n, l, p = 30, 3, 2
+print(f'Parameter (n, l, p) = {(n, l, p)}')
 
-sample_size = 4
 name = 'moments_3crossings_10'
+print('File name : '+name)
 
-pairing_list = mc.enumerate_pairings([i for i in range(10)])
+sample_size = 16
+print(f'Sample size = {sample_size}')
+
+pairing_size = 10
+print(f'Pairing size = {pairing_size}')
+pairing_list = mc.enumerate_pairings([i for i in range(pairing_size)])
+
 detected = []
 for pairing in pairing_list:
     if len(mc.k_crossings(3, pairing)) > 0 and len(mc.k_crossings(4, pairing)) == 0:
@@ -45,3 +41,16 @@ df = pd.DataFrame(dict)
 df.to_csv(name+'.csv')
 plt.hist(res, bins=30)
 plt.savefig('histogram_'+name+'.png')
+
+#pairing_list = enumerate_pairings([i for i in range(8)])
+#print(f'Number of pairings = {len(pairing_list)}')
+#tot = 0
+#func = lambda pairing: pairing_moment(30, 2, 2, pairing)
+#moment_list = Parallel(n_jobs=-1, verbose=10)(delayed(func)(pairing) for pairing in pairing_list)
+#for i, moment in enumerate(moment_list):
+#    if moment < 0.1:
+#        print(pairing_list[i])
+#        tot += 1
+#print(f'Number of detected pairings = {tot}')
+#plt.hist(moment_list, bins=30)
+#plt.show()
