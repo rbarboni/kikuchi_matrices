@@ -5,7 +5,7 @@ from tqdm import tqdm
 from joblib import Parallel, delayed
 import pandas as pd
 
-n, l, p = 20, 3, 2
+n, l, p = 30, 3, 2
 print(f'Parameter (n, l, p) set to: {(n, l, p)}')
 
 name = 'moments_3crossings_10'
@@ -39,7 +39,7 @@ idx = np.argsort(res)
 dict = {'pairing': [detected[i] for i in idx], 'moment': [res[i] for i in idx]}
 df = pd.DataFrame(dict)
 df.to_csv(name+'.csv')
-plt.hist(res, bins=len(detected)//4)
+plt.hist(res, bins=len(detected)//5)
 plt.savefig('histogram_'+name+'.png')
 
 
