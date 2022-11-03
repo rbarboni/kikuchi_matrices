@@ -18,18 +18,30 @@ import pandas as pd
 #plt.hist(moment_list, bins=30)
 #plt.show()
 
+sample_size = 4
+name = 'moments_3crossings_10'
+
 pairing_list = mc.enumerate_pairings([i for i in range(10)])
 detected = []
 for pairing in pairing_list:
     if len(mc.k_crossings(3, pairing)) > 0 and len(mc.k_crossings(4, pairing)) == 0:
         detected.append(pairing)
-res = np.zeros(len(detected))
-for i in tqdm(range(len(detected))):
-    moment_list = Parallel(n_jobs=-1)(delayed(mc.pairing_moment)(30, 3, 2, detected[i]) for _ in range(8))
-    res[i] = np.array(moment_list).mean()
+print(f'Number of selected pairings = {len(detected)}')
+
+res = np.zeros((len(detected), sample_size))
+
+func = lambda  pairing: mc.pairing_moment(30, 3, 2, pairing)
+
+for i in range(sample_size):
+    print(f'Sample number = {i}')
+    moment_list = Parallel(n_jobs=-1, verbose=5)(delayed(func)(pairing) for pairing in detected)
+    res[:,i] = np.array(moment_list)
+
+res = res.mean(axis=1)
+
 idx = np.argsort(res)
 dict = {'pairing': [detected[i] for i in idx], 'moment': [res[i] for i in idx]}
 df = pd.DataFrame(dict)
-df.to_csv('moments_3crossing_10.csv')
+df.to_csv(name+'.csv')
 plt.hist(res, bins=30)
-plt.savefig('histogram_moment_3crossings_10.png')
+plt.savefig('histogram_'+name+'.png')
