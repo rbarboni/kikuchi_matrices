@@ -6,7 +6,7 @@ from joblib import Parallel, delayed
 import pandas as pd
 
 n, l, p = 20, 3, 2
-print(f'Parameter (n, l, p) = {(n, l, p)}')
+print(f'Parameter (n, l, p) set to: {(n, l, p)}')
 
 name = 'moments_3crossings_10'
 print('File name : '+name)
