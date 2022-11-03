@@ -26,7 +26,7 @@ print(f'Number of selected pairings = {len(detected)}')
 
 res = np.zeros((len(detected), sample_size))
 
-func = lambda  pairing: mc.pairing_moment(30, 3, 2, pairing)
+func = lambda  pairing: mc.pairing_moment(n, l, p, pairing)
 
 for i in range(sample_size):
     print(f'Sample number = {i}')
@@ -41,6 +41,8 @@ df = pd.DataFrame(dict)
 df.to_csv(name+'.csv')
 plt.hist(res, bins=len(detected)//4)
 plt.savefig('histogram_'+name+'.png')
+
+
 
 #pairing_list = enumerate_pairings([i for i in range(8)])
 #print(f'Number of pairings = {len(pairing_list)}')
