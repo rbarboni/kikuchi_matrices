@@ -5,7 +5,7 @@ from tqdm import tqdm
 from joblib import Parallel, delayed
 import pandas as pd
 
-n, l, p = 30, 3, 2
+n, l, p = 25, 3, 2
 print(f'Parameter (n, l, p) set to: {(n, l, p)}')
 
 name = 'moments_3crossings_10'
