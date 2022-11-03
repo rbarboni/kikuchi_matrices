@@ -39,7 +39,7 @@ idx = np.argsort(res)
 dict = {'pairing': [detected[i] for i in idx], 'moment': [res[i] for i in idx]}
 df = pd.DataFrame(dict)
 df.to_csv(name+'.csv')
-plt.hist(res, bins=50)
+plt.hist(res, bins=len(detected)//4)
 plt.savefig('histogram_'+name+'.png')
 
 #pairing_list = enumerate_pairings([i for i in range(8)])
